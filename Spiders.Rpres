@@ -1,0 +1,82 @@
+When do people Google "spider"?
+========================================================
+author: Max Lieblich
+date: November 24, 2014
+
+Spiders are misunderstood
+========================================================
+
+We all see spiders, but
+
+- most of us have no idea what species they are
+- many of us incorrectly think they live outside
+- we fear and misunderstand spiders
+
+**Example**: spiders are often visible in late Summer or early Fall. That is when the males are looking for mates. It has nothing to do with spiders coming in from outside. They are *always inside our houses*.
+
+See the [wonderful Burke Museum page](http://http://www.burkemuseum.org/spidermyth/) for a refreshing dose of reality.
+
+When people are afraid, they use Google
+========================================================
+When a hairy beast creeps along your ceiling in the middle of the night, you freak out.
+
+- You turn to Google to normalize the situation
+- Google aggregates all of this behavior
+- Google lets us see their aggregate!
+
+Google's data let us see the spider reality
+========================================================
+Q. When do people in Seattle search for spiders on Google?
+
+A. When spiders are mating, and thus running around. (Approximate mating season shaded in the plot.)
+
+```{r, echo=FALSE, fig.width=30, fig.height=15}
+library(ggplot2)
+theme_set(theme_gray(base_size=48))
+master <- read.csv("master.csv")
+master$start.dates <- as.Date(master$start.dates, format="%m/%d/%y")
+master$end.dates <- as.Date(master$end.dates, format="%m/%d/%y")
+daters <- master[master$City == "Seattle",]
+times <- format(daters$start.dates, "%Y") %in% seq(from=2010, to=2014, by=1)
+daters <- daters[times,]
+from.year <- 2010
+to.year <- 2014
+xstart <- seq(from=as.Date(paste(from.year,"08","15",sep="-")),
+                    to=as.Date(paste(to.year,"08","15",sep="-")),
+                    by="year")
+xend <- seq(from=as.Date(paste(from.year,"09","15",sep="-")),
+                    to=as.Date(paste(to.year,"09","15",sep="-")),
+                    by="year")      
+rects <- data.frame(xstart=xstart, xend=xend)
+
+ggplot(data=daters) + geom_line(aes(x=start.dates, y=Spider, color=City, geom="line"), size=3) + xlab("Time") + 
+      geom_rect(data = rects, aes(xmin = xstart, xmax = xend, 
+                                  ymin = -Inf, ymax = Inf), alpha = 0.2)        
+```
+
+This is consistent across US cities
+===========================================
+Here's the same plot with five cities included: Seattle, Portland, Miami, Boston, and Houston. American spiders and people have pretty predictable behavior!
+
+```{r, echo=FALSE, fig.width=30, fig.height=15}
+library(ggplot2)
+master <- read.csv("master.csv")
+master$start.dates <- as.Date(master$start.dates, format="%m/%d/%y")
+master$end.dates <- as.Date(master$end.dates, format="%m/%d/%y")
+daters <- master[master$City %in% c("Seattle", "Portland", "Miami", "Boston", "Houston"),]
+times <- format(daters$start.dates, "%Y") %in% seq(from=2010, to=2014, by=1)
+daters <- daters[times,]
+from.year <- 2010
+to.year <- 2014
+xstart <- seq(from=as.Date(paste(from.year,"08","15",sep="-")),
+                    to=as.Date(paste(to.year,"08","15",sep="-")),
+                    by="year")
+xend <- seq(from=as.Date(paste(from.year,"09","15",sep="-")),
+                    to=as.Date(paste(to.year,"09","15",sep="-")),
+                    by="year")      
+rects <- data.frame(xstart=xstart, xend=xend)
+
+ggplot(data=daters) + geom_line(aes(x=start.dates, y=Spider, color=City, geom="line"), size=3) + xlab("Time") + 
+      geom_rect(data = rects, aes(xmin = xstart, xmax = xend, 
+                                  ymin = -Inf, ymax = Inf), alpha = 0.2)        
+```
