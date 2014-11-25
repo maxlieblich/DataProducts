@@ -56,7 +56,7 @@ ggplot(data=daters) + geom_line(aes(x=start.dates, y=Spider, color=City, geom="l
 
 This is consistent across US cities
 ===========================================
-Here's the same plot with five cities included: Seattle, Portland, Miami, Boston, and Houston. American spiders and people have pretty predictable behavior!
+Here's the same plot with five cities included: Seattle, Portland, Miami, Boston, and Houston. American spiders and people have pretty predictable behavior! Learn more [here](https://maxlieblich.shinyapps.io/DataProducts/).
 
 ```{r, echo=FALSE, fig.width=30, fig.height=15}
 library(ggplot2)

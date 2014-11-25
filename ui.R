@@ -5,7 +5,6 @@ shinyUI(fluidPage(
   # Application title
   titlePanel("Google knows when spiders mate"),
   
-  # Sidebar with a slider input for number of bins
   sidebarLayout(
     sidebarPanel(
       sliderInput("years", h4("Years"), 
@@ -25,7 +24,6 @@ shinyUI(fluidPage(
                     value = FALSE),
       selectInput("tempInput", "Temperature type", c("High", "Low", "Mean"))),
     
-    # Show a plot of the generated distribution
     mainPanel(
       tabsetPanel(
         tabPanel("Plot", plotOutput("spiderPlot")),

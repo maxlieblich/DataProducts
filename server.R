@@ -1,7 +1,6 @@
 library(shiny)
 library(ggplot2)
 
-source("processing.R")
 master <- read.csv("master.csv")
 master$start.dates <- as.Date(master$start.dates, format="%m/%d/%y")
 master$end.dates <- as.Date(master$end.dates, format="%m/%d/%y")
